@@ -4,14 +4,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
-import { createStore } from 'redux';
-import reducer from './reducers/ticket-list-reducer';
+import { createStore } from 'redux'; // deprecated
+import rootReducer from './reducers/index';
 import { Provider } from 'react-redux';
 import App from './components/App';
 TimeAgo.addDefaultLocale(en)
 
-const store = createStore(reducer);
-store.subscribe(() => console.log(store.getState()));
+const store = createStore(rootReducer);
+store.subscribe(() => console.log(store.getState())); // just for debugging
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

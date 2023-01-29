@@ -2,10 +2,12 @@ import ticketListReducer from '../../reducers/ticket-list-reducer';
 
 describe('ticketListReducer', () => {
   let action;
+  const date = new Date();
   const ticketData = {
     names: 'Ash & Zamler',
     location: 'somewhere',
     issue: 'Someone is wrong on the internet!',
+    date: date,
     id: 1
   };
   const currentState = {
@@ -13,11 +15,13 @@ describe('ticketListReducer', () => {
       names: 'Ryan & Aimen',
       location: '4b',
       issue: 'Redux action is not working correctly.',
+      date: date,
       id: 1 
     }, 2: {
       names: 'Jasmine and Justine',
       location: '2a',
       issue: 'Reducer has side effects.',
+      date: date,
       id: 2 
     }
   }
@@ -33,6 +37,7 @@ describe('ticketListReducer', () => {
       names: names,
       location: location,
       issue: issue,
+      date: date,
       id: id
     };
 
@@ -41,6 +46,7 @@ describe('ticketListReducer', () => {
         names: names,
         location: location,
         issue: issue,
+        date: date,
         id: id
       }
     });
@@ -52,6 +58,7 @@ describe('ticketListReducer', () => {
       names: 'new names',
       location: 'new location',
       issue: 'new issue',
+      date: date,
       id: 2
     };
     const newState = ticketListReducer(currentState, action);
@@ -62,6 +69,7 @@ describe('ticketListReducer', () => {
         names: 'new names',
         location: 'new location',
         issue: 'new issue',
+        date: date,
         id: 2
       }
     );
@@ -77,13 +85,9 @@ describe('ticketListReducer', () => {
         names: 'Jasmine and Justine',
         location: '2a',
         issue: 'Reducer has side effects.',
+        date: date,
         id: 2 
       }
     });
   });
-
-
-
-
-
 });

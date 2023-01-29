@@ -21,8 +21,8 @@ function TicketList(props) {
 }
 
 TicketList.propTypes = {
-  ticketList: PropTypes.object,
-  onTicketSelection: PropTypes.func
+  ticketList: PropTypes.object.isRequired,
+  onTicketClick: PropTypes.func.isRequired
 };
 
 export default TicketList;

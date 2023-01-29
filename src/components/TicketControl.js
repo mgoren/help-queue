@@ -10,17 +10,16 @@ class TicketControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTicket: null,
-      visible: 'list'
+      selectedTicket: null
     };
   }
 
   handleAddTicketClick = () => {
-    this.setState({ visible: 'new-ticket-form' });
+    this.props.dispatch({ type: 'NEW_TICKET_FORM' });
   }
 
   handleEditTicketClick = () => {
-    this.setState({ visible: 'edit-ticket-form' });
+    this.props.dispatch({ type: 'EDIT_TICKET_FORM' });
   }
 
   handleAddingNewTicketToList = (newTicket) => {
@@ -35,7 +34,7 @@ class TicketControl extends React.Component {
       date: date
     }
     dispatch(action);
-    this.setState({ visible: 'list' });
+    dispatch({ type: 'LIST' });
   }
 
   handleUpdatingTicket = (updatedTicket) => {
@@ -50,61 +49,49 @@ class TicketControl extends React.Component {
       date: date
     }
     dispatch(action);
-    this.setState({
-      selectedTicket: null,
-      visible: 'list'
-    });
+    this.setState({ selectedTicket: null });
+    dispatch({ type: 'LIST' });
   }
 
   handleDeletingTicket = (id) => {
     const { dispatch } = this.props;
-    const action = {
-      type: 'DELETE_TICKET',
-      id: id
-    }
-    dispatch(action);
-    this.setState({
-      selectedTicket: null,
-      visible: 'list'
-    });
+    dispatch({ type: 'DELETE_TICKET', id: id });
+    dispatch({ type: 'LIST' });
+    this.setState({ selectedTicket: null });
   }
 
   handleChangingSelectedTicket = (id) => {
+    const { dispatch } = this.props;
     if (id) {
-      const selectedTicket = this.props.mainTicketList[id];
-      this.setState({ 
-        selectedTicket: selectedTicket,
-        visible: 'details'
-      });
+      this.setState({ selectedTicket: this.props.mainTicketList[id] });
+      dispatch({ type: 'DETAILS' });
     } else {
-      this.setState({ 
-        selectedTicket: null,
-        visible: 'list'
-      });
+      this.setState({ selectedTicket: null });
+      dispatch({ type: 'LIST' });
     }
   }
 
   render() {
     let currentlyVisibleState = null;
-    if (this.state.visible === 'details') {
+    if (this.props.visible === 'details') {
       currentlyVisibleState = <TicketDetail 
                                 ticket = {this.state.selectedTicket} 
                                 onClickingDelete = {this.handleDeletingTicket} 
                                 onClickingEdit = {this.handleEditTicketClick}
                                 whenTicketClicked = { this.handleChangingSelectedTicket }
                               />
-    } else if (this.state.visible === 'new-ticket-form') {
+    } else if (this.props.visible === 'new-ticket-form') {
       currentlyVisibleState = <NewTicketForm 
                                 onNewTicketCreation={this.handleAddingNewTicketToList} 
                                 onClickingX = { this.handleChangingSelectedTicket }
                               />;
-    } else if (this.state.visible === 'edit-ticket-form') {
+    } else if (this.props.visible === 'edit-ticket-form') {
       currentlyVisibleState = <EditTicketForm
                                 ticket = {this.state.selectedTicket}
                                 onEditTicket={this.handleUpdatingTicket}
                                 onClickingX = { this.handleChangingSelectedTicket }
                               />
-    } else if (this.state.visible === 'list') {
+    } else if (this.props.visible === 'list') {
       currentlyVisibleState = <React.Fragment>
                                 <TicketList 
                                   ticketList={this.props.mainTicketList} 
@@ -122,12 +109,14 @@ class TicketControl extends React.Component {
 }
 
 TicketControl.propTypes = {
-  mainTicketList: PropTypes.object
+  mainTicketList: PropTypes.object.isRequired,
+  visible: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    mainTicketList: state
+    mainTicketList: state.mainTicketList,
+    visible: state.visible
   }
 }
 
