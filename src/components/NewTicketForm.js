@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { v4 } from 'uuid';
 import Form from './Form';
 
 function NewTicketForm(props) {
@@ -10,8 +9,7 @@ function NewTicketForm(props) {
       names: event.target.names.value, 
       location: event.target.location.value, 
       issue: event.target.issue.value, 
-      date: new Date(),
-      id: v4()
+      date: new Date()
     });
   }
   return (
