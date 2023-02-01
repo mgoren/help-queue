@@ -1,0 +1,8 @@
+.ticket {
+  background: rgb(180, 163, 163);
+  font-family: sans-serif;
+  padding: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  cursor: pointer;
+}

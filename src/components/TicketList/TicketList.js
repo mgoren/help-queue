@@ -1,13 +1,13 @@
 import React from 'react';
-import Ticket from './Ticket';
 import PropTypes from 'prop-types';
+import Ticket from '../Ticket';
 
-function TicketList(props) {
+export default function TicketList({ ticketList, onTicketClick }) {
   return (
-    <React.Fragment>
-      {props.ticketList.map( (ticket) => 
+    <section className='ticketList'>
+      {ticketList.map( (ticket) => 
         <Ticket
-          whenTicketClicked = { props.onTicketClick }
+          whenTicketClicked = { onTicketClick }
           names={ticket.names}
           location={ticket.location}
           issue={ticket.issue}
@@ -16,13 +16,11 @@ function TicketList(props) {
           key={ticket.id}
         />
       )}
-    </React.Fragment>
+    </section>
   );
 }
 
 TicketList.propTypes = {
-  ticketList: PropTypes.array,
-  onTicketSelection: PropTypes.func
+  ticketList: PropTypes.array.isRequired,
+  onTicketClick: PropTypes.func.isRequired
 };
-
-export default TicketList;

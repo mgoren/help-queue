@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import NewTicketForm from './NewTicketForm';
-import EditTicketForm from './EditTicketForm';
-import TicketList from './TicketList';
-import TicketDetail from './TicketDetail';
-import db from '../firebase.js';
+import db from '../../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import NewTicketForm from '../TicketForm/NewTicketForm';
+import EditTicketForm from '../TicketForm/EditTicketForm';
+import TicketList from '../TicketList';
+import TicketDetail from '../TicketDetail';
 
-
-function TicketControl() {
+export default function TicketControl() {
   const [visible, setVisible] = useState('list');
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [mainTicketList, setMainTicketList] = useState([]);
@@ -87,7 +86,7 @@ function TicketControl() {
                               ticket = {selectedTicket}
                               onClickingDelete = {handleDeletingTicket}
                               onClickingEdit = {handleEditTicketClick}
-                              whenTicketClicked = { handleChangingSelectedTicket }
+                              onTicketClicked = { handleChangingSelectedTicket }
                             />
   } else if (visible === 'new-ticket-form') {
     currentlyVisibleState = <NewTicketForm
@@ -110,10 +109,8 @@ function TicketControl() {
                             </React.Fragment>;
   }
   return (
-    <React.Fragment>
+    <section className='ticketControl'>
       {currentlyVisibleState}
-    </React.Fragment>
+    </section>
   );
 }
-
-export default TicketControl;

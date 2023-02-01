@@ -1,0 +1,20 @@
+.ticketDetail {
+  background: lightskyblue;
+  font-family: sans-serif;
+  padding: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.ticketDetail button {
+  margin-right: 10px;
+}
+
+.ticketDetail__close {
+  position: absolute;
+  top: 17px;
+  right: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}

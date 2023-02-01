@@ -1,0 +1,11 @@
+.ticketForm {
+  position: relative;
+  background: skyblue;
+  padding: 25px;
+}
+
+.ticketForm .form-control {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 96%;
+}
