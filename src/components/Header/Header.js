@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import jackImage from '../../img/jack.jpg';
-import './Header.css';
+import './Header.scss';
+import AlertPopup from '../AlertPopup'
 
 export default function Header() {
   const url = useLocation().pathname;
@@ -26,7 +27,9 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <h1>Help Queue</h1>
+
+      <AlertPopup />
+
       <img src={jackImage} height="250" alt="Jack Terricloth" />
       <hr/>
     </section>
