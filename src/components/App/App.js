@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.scss';
 import Header from '../Header';
@@ -10,9 +10,23 @@ import { AlertProvider } from '../../contexts/AlertContext'
 import { ThemeContext } from '../../contexts/ThemeContext';
 
 export default function App() { 
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const [ user, setUser ] = useState(null);
 
+  useEffect(() => {
+    // Add listener to update styles
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => setTheme(e.matches ? 'dark' : 'light'));
+  
+    // Setup dark/light mode for the first time
+    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  
+    // Remove listener
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
+      });
+    }
+  }, []);
+  
   return (
     <Router>
       <AlertProvider>
