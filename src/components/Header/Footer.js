@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <section className='footer'>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className={`navbar navbar-expand-lg navbar-dark bg-${theme}`}>
         <div className="container-fluid">
           <div className="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul className="navbar-nav center-justify-content mb-2 mb-lg-0">

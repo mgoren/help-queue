@@ -1,23 +1,31 @@
 .header {
-  h1 {
-    color: darkgray;
-  }
-
   img {
     margin-top: 20px;
   }
 
   nav {
+    font-weight: 600;
     margin-bottom: 20px;
+    .navbar-brand {
+      color: var(--brand-color) !important;
+      font-weight: bold;
+    }
+    .dropdown-toggle {
+      color: var(--link-color);
+    }
     .dropdown-menu {
-      background: rgb(33,37,41);
-      color: rgb(155, 157, 158);
-      .dropdown-item {
-        color: rgba(255, 255, 255, 0.55);
-        &:focus, &:hover {
-          background: rgb(33,37,41);
-          color: rgb(196, 197, 198);
-        }
+      background: var(--navbar-background);
+    }
+    .sign-out {
+      color: var(--color);
+    }
+    a {
+      color: var(--link-color) !important;
+      &:focus, &:hover {
+        color: var(--link-color-hover) !important;
+      }
+      &.active {
+        color: var(--link-color-active) !important;
       }
     }
   }
@@ -27,5 +35,6 @@
   margin-top: 20px;
   .toggleTheme {
     cursor: pointer;
+    color: var(--brand-color) !important;  
   }
 }

@@ -1,6 +1,7 @@
 .ticketForm {
+  background: var(--ticket-background);
+  color: var(--ticket-color);
   position: relative;
-  background: skyblue;
   padding: 25px;
 }
 

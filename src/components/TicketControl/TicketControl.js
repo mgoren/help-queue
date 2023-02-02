@@ -5,12 +5,21 @@ import NewTicketForm from '../TicketForm/NewTicketForm';
 import EditTicketForm from '../TicketForm/EditTicketForm';
 import TicketList from '../TicketList';
 import TicketDetail from '../TicketDetail';
+import './TicketControl.scss';
 
-export default function TicketControl() {
+export default function TicketControl({ user, setUser }) {
   const [visible, setVisible] = useState('list');
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [mainTicketList, setMainTicketList] = useState([]);
   const [error, setError] = useState(null);
+
+  // listen to auth state changes so it actually refreshes
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setUser(user ? user : null)
+    });
+    return () => unsubscribe();
+  }, [setUser]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -77,14 +86,16 @@ export default function TicketControl() {
     setSelectedTicket(null);
     setVisible('list');
   }
-
   let currentlyVisibleState = null;
-  if (auth.currentUser == null) {
+
+  if (user == null) {
     return (
-      <h1>You must be signed in to access the queue.</h1>
-    )
+      <div className='ticketControl'>
+        <h1>You must be signed in to access the queue.</h1>
+      </div>
+    );
   } else if (error) {
-    currentlyVisibleState = <p>There was an error: {error}</p>
+    currentlyVisibleState = <h1>There was an error: {error}</h1>
   } else if (visible === 'details') {
     currentlyVisibleState = <TicketDetail
                               ticket = {selectedTicket}
@@ -105,11 +116,13 @@ export default function TicketControl() {
                             />
   } else if (visible === 'list') {
     currentlyVisibleState = <React.Fragment>
+                              <div className="d-grid gap-2">
+                                <button onClick={handleAddTicketClick} className='btn btn-block btn-lg btn-info'>Add Ticket</button>
+                              </div>
                               <TicketList
                                 ticketList={mainTicketList}
                                 onTicketClick={handleChangingSelectedTicket}
                               />
-                              <button onClick={handleAddTicketClick} className='btn btn-warning'>Add Ticket</button>
                             </React.Fragment>;
   }
   return (

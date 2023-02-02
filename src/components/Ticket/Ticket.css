@@ -1,5 +1,6 @@
 .ticket {
-  background: rgb(180, 163, 163);
+  background: var(--ticket-background);
+  color: var(--ticket-color);
   font-family: sans-serif;
   padding: 25px;
   margin-top: 25px;

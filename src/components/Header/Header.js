@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import jackImage from '../../img/jack.jpg';
+// import jackImage from '../../img/jack.jpg';
 import './Header.scss';
 import AlertPopup from '../AlertPopup'
+import { ThemeContext } from '../../contexts/ThemeContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase.js';
+import useAlert from '../../hooks/useAlert';
 
 export default function Header() {
   const url = useLocation().pathname;
+  const { theme } = useContext(ThemeContext);
+  const { setAlert } = useAlert();
+
+  function doSignOut() {
+    signOut(auth)
+      .then(function() {
+        setAlert("You have successfully signed out!", 'alert-success');
+      }).catch(function(err) {
+        setAlert(`There was an error signing out: ${err.message}!`, 'alert-danger');
+      });
+  }
 
   return (
     <section className='header'>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className={`navbar navbar-expand-lg navbar-dark bg-${theme}`}>
         <div className="container-fluid">
           <span className="navbar-brand" href="/">Help Queue</span>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,10 +40,13 @@ export default function Header() {
         </div>
         <ul className="navbar-nav ms-auto">
           <li className="nav-item dropdown">
-            <span className="nav-link dropdown-toggle px-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</span>
+            <span className="nav-link dropdown-toggle px-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {auth.currentUser ? auth.currentUser.email : 'Account'}
+            </span>
             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><Link to='/sign-in' className={`dropdown-item ${url === '/sign-in' && 'active'}`}>Sign In</Link></li>
-              <li><Link to='/sign-in' className={`dropdown-item ${url === '/sign-in' && 'active'}`}>Register</Link></li>
+              {!auth.currentUser && <li><Link to='/register' className={`dropdown-item ${url === '/register' && 'active'}`}>Register</Link></li>}
+              {!auth.currentUser && <li><Link to='/sign-in' className={`dropdown-item ${url === '/sign-in' && 'active'}`}>Sign In</Link></li>}
+              {auth.currentUser && <li className='sign-out dropdown-item' onClick={doSignOut}>Sign out</li>}
             </ul>
           </li>
         </ul>
@@ -36,8 +54,7 @@ export default function Header() {
 
       <AlertPopup />
 
-      <img src={jackImage} height="250" alt="Jack Terricloth" />
-      <hr/>
+      {/* <img src={jackImage} height="250" alt="Jack Terricloth" /> */}
     </section>
   );
 }

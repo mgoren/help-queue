@@ -1,13 +1,30 @@
 .rootContainer {
-  &.dark {
-    background: black;
+    background: var(--background);
     min-height: 100vh;
     padding: 20px; 
-  }
-  
-  &.light {
-    background: white;
-    min-height: 100vh;
-    padding: 20px; 
-  }
+}
+
+.theme-light {
+  --background: white;
+  --color: black;
+  --navbar-background: rgb(248, 249, 250);
+  --brand-color: black;
+  --link-color: rgb(97, 96, 96);
+  --link-color-hover: rgb(51, 50, 50);
+  --link-color-active: black;
+  --ticket-background: rgb(228, 222, 239);
+  --ticket-color: black;
+}
+
+.theme-dark {
+  --background: black;
+  --color: lightgray;
+  --navbar-background: rgb(33,37,41);
+  --brand-color: white;
+  --link-color: darkgray;
+  --link-color-hover: lightgray;
+  --link-color-active: white;
+  --dropdown-color: rgba(255, 255, 255, 0.55);
+  --ticket-background: rgb(69, 58, 96);
+  --ticket-color: lightgray;
 }

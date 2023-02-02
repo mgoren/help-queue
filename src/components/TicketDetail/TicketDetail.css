@@ -1,5 +1,6 @@
 .ticketDetail {
-  background: lightskyblue;
+  background: var(--ticket-background);
+  color: var(--ticket-color);
   font-family: sans-serif;
   padding: 25px;
   margin-top: 25px;
