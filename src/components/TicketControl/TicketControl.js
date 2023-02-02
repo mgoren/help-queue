@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase.js';
+import { db, auth } from '../../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import NewTicketForm from '../TicketForm/NewTicketForm';
 import EditTicketForm from '../TicketForm/EditTicketForm';
@@ -79,7 +79,11 @@ export default function TicketControl() {
   }
 
   let currentlyVisibleState = null;
-  if (error) {
+  if (auth.currentUser == null) {
+    return (
+      <h1>You must be signed in to access the queue.</h1>
+    )
+  } else if (error) {
     currentlyVisibleState = <p>There was an error: {error}</p>
   } else if (visible === 'details') {
     currentlyVisibleState = <TicketDetail

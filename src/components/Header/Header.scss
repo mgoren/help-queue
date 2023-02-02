@@ -3,11 +3,29 @@
     color: darkgray;
   }
 
-  nav {
-    margin-bottom: 20px;
-  }
-
   img {
     margin-top: 20px;
+  }
+
+  nav {
+    margin-bottom: 20px;
+    .dropdown-menu {
+      background: rgb(33,37,41);
+      color: rgb(155, 157, 158);
+      .dropdown-item {
+        color: rgba(255, 255, 255, 0.55);
+        &:focus, &:hover {
+          background: rgb(33,37,41);
+          color: rgb(196, 197, 198);
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  margin-top: 20px;
+  .toggleTheme {
+    cursor: pointer;
   }
 }

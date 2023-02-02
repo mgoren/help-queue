@@ -1,4 +1,4 @@
-import useAlert from '../useAlert';
+import useAlert from '../../hooks/useAlert';
 
 const AlertPopup = () => {
   const { text, type } = useAlert();

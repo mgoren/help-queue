@@ -6,11 +6,14 @@ import ReactDOM from 'react-dom/client';
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 import App from './components/App';
+import { ThemeProvider } from "./contexts/ThemeContext";
 TimeAgo.addDefaultLocale(en)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );

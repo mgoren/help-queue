@@ -1,0 +1,13 @@
+.rootContainer {
+  &.dark {
+    background: black;
+    min-height: 100vh;
+    padding: 20px; 
+  }
+  
+  &.light {
+    background: white;
+    min-height: 100vh;
+    padding: 20px; 
+  }
+}
