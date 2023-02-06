@@ -13,6 +13,7 @@ export default function TicketControl({ user, setUser }) {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [mainTicketList, setMainTicketList] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // listen to auth state changes so it actually refreshes
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function TicketControl({ user, setUser }) {
           tickets.push({ ...doc.data(), date: doc.data().date.toDate(), id: doc.id });
         });
         setMainTicketList(tickets);
+        setIsLoading(false);
       },
       (error) => {
         setError(error.message);
@@ -89,7 +91,9 @@ export default function TicketControl({ user, setUser }) {
   }
   let currentlyVisibleState = null;
 
-  if (user == null) {
+  if (isLoading) {
+    currentlyVisibleState = <></>;
+  } else if (user == null) {
     currentlyVisibleState = <h1>You must be signed in to access the queue.</h1>;
   } else if (error) {
     currentlyVisibleState = <h1>There was an error: {error}</h1>;
