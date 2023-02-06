@@ -5,6 +5,7 @@ import NewTicketForm from '../TicketForm/NewTicketForm';
 import EditTicketForm from '../TicketForm/EditTicketForm';
 import TicketList from '../TicketList';
 import TicketDetail from '../TicketDetail';
+import Footer from '../Footer';
 import './TicketControl.scss';
 
 export default function TicketControl({ user, setUser }) {
@@ -89,13 +90,9 @@ export default function TicketControl({ user, setUser }) {
   let currentlyVisibleState = null;
 
   if (user == null) {
-    return (
-      <div className='ticketControl'>
-        <h1>You must be signed in to access the queue.</h1>
-      </div>
-    );
+    currentlyVisibleState = <h1>You must be signed in to access the queue.</h1>;
   } else if (error) {
-    currentlyVisibleState = <h1>There was an error: {error}</h1>
+    currentlyVisibleState = <h1>There was an error: {error}</h1>;
   } else if (visible === 'details') {
     currentlyVisibleState = <TicketDetail
                               ticket = {selectedTicket}
@@ -123,6 +120,7 @@ export default function TicketControl({ user, setUser }) {
                                 ticketList={mainTicketList}
                                 onTicketClick={handleChangingSelectedTicket}
                               />
+                              <Footer />
                             </React.Fragment>;
   }
   return (

@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <section className='header'>
-      <nav className={`navbar navbar-expand-lg navbar-dark bg-${theme}`}>
+      <nav className={`navbar navbar-expand-lg navbar-${theme}`}>
         <div className="container-fluid">
           <span className="navbar-brand" href="/">Help Queue</span>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,20 +36,20 @@ export default function Header() {
                 <Link to='/' className={`nav-link px-3 ${url === '/' && 'active'}`}>Home</Link>
               </li>
             </ul>
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item dropdown">
+                <span className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {auth.currentUser ? auth.currentUser.email : 'Account'}
+                </span>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  {!auth.currentUser && <li><Link to='/register' className={`dropdown-item ${url === '/register' && 'active'}`}>Register</Link></li>}
+                  {!auth.currentUser && <li><Link to='/sign-in' className={`dropdown-item ${url === '/sign-in' && 'active'}`}>Sign In</Link></li>}
+                  {auth.currentUser && <li className='sign-out dropdown-item' onClick={doSignOut}>Sign out</li>}
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
-        <ul className="navbar-nav ms-auto">
-          <li className="nav-item dropdown">
-            <span className="nav-link dropdown-toggle px-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {auth.currentUser ? auth.currentUser.email : 'Account'}
-            </span>
-            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              {!auth.currentUser && <li><Link to='/register' className={`dropdown-item ${url === '/register' && 'active'}`}>Register</Link></li>}
-              {!auth.currentUser && <li><Link to='/sign-in' className={`dropdown-item ${url === '/sign-in' && 'active'}`}>Sign In</Link></li>}
-              {auth.currentUser && <li className='sign-out dropdown-item' onClick={doSignOut}>Sign out</li>}
-            </ul>
-          </li>
-        </ul>
       </nav>
 
       <AlertPopup />

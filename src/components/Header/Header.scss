@@ -12,6 +12,10 @@
     }
     .dropdown-toggle {
       color: var(--link-color);
+
+      &.nav-link {
+        padding-right: 0;
+      }
     }
     .dropdown-menu {
       background: var(--navbar-background);
@@ -28,13 +32,5 @@
         color: var(--link-color-active) !important;
       }
     }
-  }
-}
-
-.footer {
-  margin-top: 20px;
-  .toggleTheme {
-    cursor: pointer;
-    color: var(--brand-color) !important;  
   }
 }
