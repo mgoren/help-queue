@@ -18,6 +18,7 @@ export default function EditTicketForm({ ticket, onEditTicket, onClickingX }) {
       formSubmissionHandler={handleEditTicketFormSubmission}
       onClickingX={onClickingX}
       buttonText="Update Ticket"
+      ticket={ticket}
     />
   );
 }

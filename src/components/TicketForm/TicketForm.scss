@@ -1,0 +1,19 @@
+.ticketForm {
+  background: var(--ticket-background);
+  color: var(--ticket-color);
+  position: relative;
+  padding: 25px;
+
+  .form-group {
+    margin-bottom: 30px;
+
+    .form-control {
+      margin-top: 7px;
+      width: 96%;
+    }  
+  }
+
+  .btn {
+    margin-top: 10px;
+  }
+}

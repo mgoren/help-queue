@@ -1,20 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './TicketForm.css';
+import './TicketForm.scss';
 
-export default function TicketForm({ formSubmissionHandler, onClickingX, buttonText }) {
+export default function TicketForm({ formSubmissionHandler, onClickingX, buttonText, ticket }) {
   return (
     <section className='ticketForm'>
       <span className='ticketDetail__close' onClick = {() => onClickingX(null)}>X</span>
       <form onSubmit={formSubmissionHandler}>
         <div className='form-group'>
-          <input type='text' className='form-control' name='names' placeholder='Pair Names' autoFocus />
+          <label htmlFor='names'>Pair names</label>
+          <input type='text' className='form-control' name='names' defaultValue={ticket ? ticket.names : ''} autoFocus required />
         </div>
         <div className='form-group'>
-          <input type='text' className='form-control' name='location' placeholder='Location' />
+          <label htmlFor='names'>Location</label>
+          <input type='text' className='form-control' name='location' defaultValue={ticket ? ticket.location : ''} required />
         </div>
         <div className='form-group'>
-          <textarea name='issue' className='form-control' placeholder='Describe your issue.' />
+          <label htmlFor='names'>Describe your issue</label>
+          <textarea name='issue' className='form-control' defaultValue={ticket ? ticket.issue : ''} required />
         </div>
         <button type='submit' className='btn btn-warning'>{buttonText}</button>
       </form>
@@ -23,6 +26,7 @@ export default function TicketForm({ formSubmissionHandler, onClickingX, buttonT
 }
 
 TicketForm.propTypes = {
+  ticket: PropTypes.object,
   formSubmissionHandler: PropTypes.func,
   buttonText: PropTypes.string
 };

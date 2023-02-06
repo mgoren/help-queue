@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../../firebase.js';
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import NewTicketForm from '../TicketForm/NewTicketForm';
 import EditTicketForm from '../TicketForm/EditTicketForm';
 import TicketList from '../TicketList';
@@ -24,11 +24,11 @@ export default function TicketControl({ user, setUser }) {
   }, [setUser]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, 'tickets'), // listen for changes on tickets collection
-      (collectionSnapshot) => {
+    const q = query(collection(db, 'tickets'), orderBy('date'));
+    const unsubscribe = onSnapshot( // listen for changes to that query on that collection
+      q, (querySnapshot) => {
         const tickets = [];
-        collectionSnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc) => {
           console.log(doc.data());
           tickets.push({ ...doc.data(), date: doc.data().date.toDate(), id: doc.id });
         });
@@ -52,7 +52,7 @@ export default function TicketControl({ user, setUser }) {
     setVisible('edit-ticket-form');
   }
 
-  const handleAddingNewTicketToList = async (newTicketData) => {
+  const handleAddingNewTicket = async (newTicketData) => {
     console.log('ADD_NEW');
     try {
       await addDoc(collection(db, 'tickets'), newTicketData);
@@ -106,7 +106,7 @@ export default function TicketControl({ user, setUser }) {
                             />
   } else if (visible === 'new-ticket-form') {
     currentlyVisibleState = <NewTicketForm
-                              onNewTicketCreation={handleAddingNewTicketToList}
+                              onNewTicketCreation={handleAddingNewTicket}
                               onClickingX = { handleChangingSelectedTicket }
                             />;
   } else if (visible === 'edit-ticket-form') {
