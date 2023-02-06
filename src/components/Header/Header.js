@@ -3,14 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 // import jackImage from '../../img/jack.jpg';
 import './Header.scss';
 import AlertPopup from '../AlertPopup'
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ColorThemeContext } from '../../contexts/ColorThemeContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase.js';
 import useAlert from '../../hooks/useAlert';
 
 export default function Header() {
   const url = useLocation().pathname;
-  const { theme } = useContext(ThemeContext);
+  const { colorTheme } = useContext(ColorThemeContext);
   const { setAlert } = useAlert();
 
   function doSignOut() {
@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <section className='header'>
-      <nav className={`navbar navbar-expand-lg navbar-${theme}`}>
+      <nav className={`navbar navbar-expand-lg navbar-${colorTheme}`}>
         <div className="container-fluid">
           <span className="navbar-brand" href="/">Help Queue</span>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

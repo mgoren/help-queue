@@ -6,30 +6,30 @@ import TicketControl from '../TicketControl';
 import Register from '../Auth/Register.js';
 import SignIn from '../Auth/SignIn.js';
 import { AlertProvider } from '../../contexts/AlertContext'
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ColorThemeContext } from '../../contexts/ColorThemeContext';
 
 export default function App() { 
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { colorTheme, setColorTheme } = useContext(ColorThemeContext);
   const [ user, setUser ] = useState(null);
 
   useEffect(() => {
     // Add listener to update styles
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => setTheme(e.matches ? 'dark' : 'light'));
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => setColorTheme(e.matches ? 'dark' : 'light'));
 
     // Setup dark/light mode for the first time
-    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    setColorTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
 
     // Remove listener
     return () => {
       window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
       });
     }
-  }, [setTheme]);
+  }, [setColorTheme]);
   
   return (
     <Router>
       <AlertProvider>
-        <div className={`rootContainer theme-${theme}`}>
+        <div className={`rootContainer theme-${colorTheme}`}>
           <div className='container'>
             <Header user={user} />
             <Routes>
