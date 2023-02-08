@@ -37,6 +37,7 @@ export default function TicketControl({ user, setUser }) {
       },
       (error) => {
         setError(error.message);
+        setIsLoading(false);
       }
     );
     return () => unsubscribe();
